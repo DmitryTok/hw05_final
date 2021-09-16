@@ -34,13 +34,13 @@ class PostFormTests(TestCase):
             text='Test text',
             group=cls.test_group,
         )
-        cls.small_gif = (            
-             b'\x47\x49\x46\x38\x39\x61\x02\x00'
-             b'\x01\x00\x80\x00\x00\x00\x00\x00'
-             b'\xFF\xFF\xFF\x21\xF9\x04\x00\x00'
-             b'\x00\x00\x00\x2C\x00\x00\x00\x00'
-             b'\x02\x00\x01\x00\x00\x02\x02\x0C'
-             b'\x0A\x00\x3B'
+        cls.small_gif = (
+            b'\x47\x49\x46\x38\x39\x61\x02\x00'
+            b'\x01\x00\x80\x00\x00\x00\x00\x00'
+            b'\xFF\xFF\xFF\x21\xF9\x04\x00\x00'
+            b'\x00\x00\x00\x2C\x00\x00\x00\x00'
+            b'\x02\x00\x01\x00\x00\x02\x02\x0C'
+            b'\x0A\x00\x3B'
         )
         cls.image = SimpleUploadedFile(
             name='small.gif',
@@ -52,8 +52,8 @@ class PostFormTests(TestCase):
             text='Test comment',
             author=cls.user,
             group=cls.test_group
-            )
-        cls.test_comment_data ={
+        )
+        cls.test_comment_data = {
             'text': 'Test comment',
         }
 
@@ -108,18 +108,18 @@ class PostFormTests(TestCase):
         self.assertEqual(
             PostFormTests.test_post.group.pk,
             form_data['group'])
-    
+
     def test_image(self):
         form_data = {
             'text': PostFormTests.test_post.text,
             'group': PostFormTests.test_group.pk,
             'image': PostFormTests.image,
-            }
+        }
         post_image = self.authorized_client.post(
             reverse('post:post_create'),
-            data = form_data,
+            data=form_data,
             follow=True,
-            )
+        )
         self.assertRedirects(
             post_image,
             reverse(
@@ -128,8 +128,8 @@ class PostFormTests(TestCase):
         )
         PostFormTests.test_post.refresh_from_db()
         self.assertEqual(
-                PostFormTests.test_post.text,
-                form_data['text']
+            PostFormTests.test_post.text,
+            form_data['text']
         )
 
     def test_post_comment(self):
@@ -146,10 +146,10 @@ class PostFormTests(TestCase):
             reverse(
                 'posts:post_detail',
                 kwargs={'post_id': self.test_comment.pk}
-                )
             )
+        )
         PostFormTests.test_post.refresh_from_db()
         self.assertEqual(
             PostFormTests.test_comment.text,
             self.test_comment_data['text']
-            )
+        )
