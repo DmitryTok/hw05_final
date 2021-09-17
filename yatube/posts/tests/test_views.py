@@ -184,11 +184,13 @@ class PostVIEWSTests(TestCase):
     def test_follow(self):
         response_follow = Follow.objects.count()
         response = self.authorized_client_2.get(self.profile_follow)
-        data = Follow.objects.get(user=self.user_n, author=self.user)
-        self.assertTrue(data, response)
+        self.assertTrue(
+            Follow.objects.filter(
+                user=self.user_n,
+                author=self.user).exists())
         self.assertRedirects(response, self.profile)
         self.assertEqual(Follow.objects.count(), response_follow + 1)
-        
+
     def test_unfollow(self):
         response_unfollow = Follow.objects.count()
         response = self.authorized_client_2.get(self.profile_unfollow)
