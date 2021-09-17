@@ -69,15 +69,16 @@ class PostVIEWSTests(TestCase):
             cls.post_create: 'posts/create_post.html',
         }
 
-    def test_pages_uses_correct_template(self):
+    def setUp(self):
         cache.clear()
+
+    def test_pages_uses_correct_template(self):
         for reverse_name, template in self.templates_page_names.items():
             with self.subTest(template=template):
                 response = self.authorized_client.get(reverse_name)
                 self.assertTemplateUsed(response, template)
 
     def test_index_correct_context(self):
-        cache.clear()
         response_index = self.guest_client.get(self.index)
         test_post = response_index.context['page_obj']
         for post in test_post:
@@ -117,7 +118,6 @@ class PostVIEWSTests(TestCase):
                 self.assertEqual(post.group, group)
 
     def test_profile_correct_context(self):
-        cache.clear()
         response_profile = self.guest_client.get(self.profile)
         test_posts = response_profile.context['page_obj']
         post_count = response_profile.context['post_count']
@@ -184,9 +184,11 @@ class PostVIEWSTests(TestCase):
     def test_follow(self):
         response_follow = Follow.objects.count()
         response = self.authorized_client_2.get(self.profile_follow)
+        data = Follow.objects.get(user=self.user_n, author=self.user)
+        self.assertTrue(data, response)
         self.assertRedirects(response, self.profile)
         self.assertEqual(Follow.objects.count(), response_follow + 1)
-
+        
     def test_unfollow(self):
         response_unfollow = Follow.objects.count()
         response = self.authorized_client_2.get(self.profile_unfollow)

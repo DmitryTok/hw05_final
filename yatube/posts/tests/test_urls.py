@@ -56,7 +56,7 @@ class PostURLTests(TestCase):
 
     def test_page_404(self):
         response = self.guest_client.get('/404/')
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 
     def test_unexpecting_page_url_exists_at_desired_location(self):
         response = self.authorized_client.get('/test_page/')

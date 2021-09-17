@@ -98,15 +98,16 @@ def post_edit(request, post_id):
         request.POST or None,
         files=request.FILES or None,
         instance=post_user)
+    context = {
+        'form': form,
+        'is_edit': is_edit,
+    }
     if post_user.author != request.user:
         return redirect('posts:post_detail', post_id)
     if form.is_valid():
         form.save()
         return redirect('posts:post_detail', post_id=post_user.pk)
-    return render(
-        request,
-        'posts/create_post.html',
-        {'form': form, 'is_edit': is_edit})
+    return render(request,'posts/create_post.html', context)
 
 
 @login_required
@@ -139,6 +140,7 @@ def profile_follow(request, username):
     user = request.user
     if user != author:
         Follow.objects.get_or_create(user=user, author=author)
+        return redirect('post:profile', username=author)
     return redirect('post:profile', username=author.username)
 
 

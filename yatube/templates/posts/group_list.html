@@ -9,7 +9,7 @@
   {% for post in page_obj %}
   <ul>
     <li>
-      Автор: {{ post.author.get_full_name }}
+      Автор: {{ post.author }}
     </li>
     {% load thumbnail %}
     <li>

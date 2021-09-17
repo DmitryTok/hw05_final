@@ -62,7 +62,7 @@ class PostFormTests(TestCase):
         super().tearDownClass()
         shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
 
-    def check_post_create(self):
+    def test_check_post_create(self):
         form_data = {
             'text': PostFormTests.test_post.text,
             'group': PostFormTests.test_group.pk,
@@ -76,12 +76,12 @@ class PostFormTests(TestCase):
             response,
             reverse(
                 'posts:profile',
-                kwargs={'username': self.author.username}))
+                kwargs={'username': self.test_post.author}))
         self.assertTrue(
             Post.objects.filter(
-                author=self.user.author,
+                author=PostFormTests.test_post.author,
                 text=PostFormTests.test_post.text,
-                group=PostFormTests.group.pk,).exists())
+                group=PostFormTests.test_group.pk,).exists())
 
     def test_post_create(self):
         post_id = PostFormTests.test_post.pk
