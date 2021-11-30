@@ -12,6 +12,10 @@ CACHES = {
     }
 }
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+] 
+
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
@@ -32,9 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -101,7 +107,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+<<<<<<< HEAD
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+=======
+STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
+>>>>>>> a7f2281a7ccc85a5ea3729e36328b6ad18e319b7
 
 LOGIN_URL = 'users:login'
 
