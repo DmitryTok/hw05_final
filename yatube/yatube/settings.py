@@ -4,7 +4,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 't-^%*#a(h2!obf!+g+92&blcl-zza(t$p5_&u#cqb%z(i5^=7j'
 
-DEBUG = True
+DEBUG = False
 
 CACHES = {
     'default': {
@@ -17,6 +17,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '[::1]',
     'testserver',
+    '51.250.13.154',
 ]
 
 INSTALLED_APPS = [
@@ -66,8 +67,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'yatube.wsgi.application'
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -101,6 +100,8 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 LOGIN_URL = 'users:login'
 
