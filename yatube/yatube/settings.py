@@ -12,11 +12,16 @@ CACHES = {
     }
 }
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+] 
+
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '[::1]',
     'testserver',
+    '51.250.13.154',
 ]
 
 INSTALLED_APPS = [
@@ -31,9 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -65,8 +72,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'yatube.wsgi.application'
-
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 DATABASES = {
     'default': {
@@ -101,6 +106,8 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 
 LOGIN_URL = 'users:login'
 
