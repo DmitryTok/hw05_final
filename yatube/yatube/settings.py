@@ -1,4 +1,9 @@
 import os
+import environ
+
+env = environ.Env()
+
+environ.Env.read_env()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -22,6 +27,8 @@ ALLOWED_HOSTS = [
     '[::1]',
     'testserver',
     '51.250.13.154',
+    'dk-progect.cohort3plus.ru',
+    'www.dk-progect.cohort3plus.ru',
 ]
 
 INSTALLED_APPS = [
@@ -74,10 +81,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'yatube.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': env.db(),
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -106,12 +110,7 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-
-<<<<<<< HEAD
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-=======
-STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
->>>>>>> a7f2281a7ccc85a5ea3729e36328b6ad18e319b7
 
 LOGIN_URL = 'users:login'
 
